@@ -1,8 +1,10 @@
+
 const express = require('express');
 const router = express.Router();
-const {getAll, setTest} = require('../controllers/comedianController')
+const {getAll, getByName, getByID} = require('../controllers/comedianController')
 
 router.get('/all', getAll)
-router.post('/test2', setTest)
+router.get('/getByName', getByName)
+router.get('/getByID', getByID)
 
 module.exports = router;
