@@ -1,6 +1,5 @@
 const comedian = require('../models/comedianModel')
 
-
 // @desc get complete info of all comedians
 // @route api/comedian/all
 // @access public
