@@ -1,24 +1,17 @@
-const createError = require('http-errors');
+const dotenv = require('dotenv').config()
+const colors = require('colors')
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const mongoose = require('mongoose');
-
-const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
+const connectDB = require('./config/db')
 
 const server = express();
 
-// connect to database
-mongoose.connect('mongodb://97.107.141.97/ComedyRadar')
-const db = mongoose.connection
-db.on('error', (error) => console.error(error))
-db.once('open', () => console.log('connected to db'))
+const port = process.env.PORT || 5000
 
-// view engine setup
-server.set('views', path.join(__dirname, 'views'));
-server.set('view engine', 'pug');
+db = connectDB()
 
 server.use(logger('dev'));
 server.use(express.json());
@@ -26,9 +19,14 @@ server.use(express.urlencoded({ extended: false }));
 server.use(cookieParser());
 server.use(express.static(path.join(__dirname, 'public')));
 
-server.use('/', indexRouter);
-server.use('/users', usersRouter);
+// create routes
+server.get('/', function(req, res, next) {
+    res.send('test');
+});
+server.use('/api/', require('./routes/index'));
+server.use('/api/users',  require('./routes/users'));
+server.use('/api/comedian', require('./routes/comedians'));
 
-server.listen(3000)
+server.listen(port)
 
 module.exports = server;
