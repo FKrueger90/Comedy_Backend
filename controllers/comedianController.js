@@ -34,4 +34,14 @@ const getByID = async (req, res) => {
     }
 }
 
-module.exports = {getAll, getByName, getByID}
+// @desc get info of one comedian. find by _id
+// @route api/comedian/getCardDataAll
+// @access public
+const getCardDataAll = async (req, res) => {
+    const allCardData = await comedian.find({},
+        {name: 1, website: 1, facebook:1, instagram:1, twitter:1, youtube:1} )
+    res.status(200).json(allCardData)
+}
+
+
+module.exports = {getAll, getByName, getByID, getCardDataAll}
