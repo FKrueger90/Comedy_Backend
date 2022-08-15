@@ -4,7 +4,7 @@ const comedian = require('../models/comedianModel')
 // @route api/comedian/all
 // @access public
 const getAll = async (req, res) => {
-    const allComedians = await comedian.find( )
+    const allComedians = await comedian.find().sort({'name': 1})
     res.status(200).json(allComedians)
 }
 
@@ -39,7 +39,7 @@ const getByID = async (req, res) => {
 // @access public
 const getCardDataAll = async (req, res) => {
     const allCardData = await comedian.find({},
-        {name: 1, website: 1, facebook:1, instagram:1, twitter:1, youtube:1} )
+        {name: 1, website: 1, facebook:1, instagram:1, twitter:1, youtube:1} ).sort({'name': 1})
     res.status(200).json(allCardData)
 }
 
